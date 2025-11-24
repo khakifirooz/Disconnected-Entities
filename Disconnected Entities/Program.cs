@@ -1,4 +1,5 @@
 ﻿
+using System.Linq.Expressions;
 using Disconnected_Entities.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,16 +16,22 @@ var context = new AppDb();
 //person.Name = "Ahmad";
 //context.SaveChanges();
 
-var person = new Person("Mehdi", "Ahmadvand");
-if (person.Id == 0)
-    context.Entry(person).State = EntityState.Added;
-else if (person.Id == 1)
-    context.Entry(person).State = EntityState.Modified;
+try
+{
+    var person = new Person("Mehdi", "Ahmadvand");
+    if (person.Id == 0)
+        context.Entry(person).State = EntityState.Added;
+    else if (person.Id == 1)
+        context.Entry(person).State = EntityState.Modified;
 
-Console.WriteLine($" state is : {context.Entry(person).State}");
-Console.WriteLine("succeeded");
-context.SaveChanges();
-Console.WriteLine($" state is : {context.Entry(person).State}");
-
+    Console.WriteLine($" state is : {context.Entry(person).State}");
+    Console.WriteLine("succeeded");
+    context.SaveChanges();
+    Console.WriteLine($" state is : {context.Entry(person).State}");
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
+}
 
 Console.ReadKey();
