@@ -11,6 +11,7 @@ var context = new AppDb();
 //Console.WriteLine("succeeded");
 
 var person = context.Persons.First();
+context.Entry(person).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
 person.Name = "Ahmad";
 context.SaveChanges();
 Console.WriteLine($" state is : {context.Entry(person).State}");
